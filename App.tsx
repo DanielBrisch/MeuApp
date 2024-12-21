@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './src/screens/HomeScreen';
+import ChatListScreen from './src/screens/ChatListScreen';
+import AskAIScreen from './src/screens/AskIaScreen';
+import { RootStackParamList } from './src/navigation/types';
+import ChatDetailScreen from './src/screens/ChatDetailScreen';
 
-export default function App() {
+// Importa o stack navigator do React Navigation
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      {/* Configura o stack navigator para as telas do app */}
+      <Stack.Navigator initialRouteName="Home">
+        {/* Tela inicial */}
+        <Stack.Screen name="Home" component={HomeScreen} />
+        {/* Tela com a lista de chats */}
+        <Stack.Screen name="ListaDeChats" component={ChatListScreen} />
+        {/* Tela para fazer perguntas à IA */}
+        <Stack.Screen name="AskAI" component={AskAIScreen} />
+        {/* Tela para mostrar os detalhes de um chat */}
+        <Stack.Screen name="ChatDetalhes" component={ChatDetailScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
+
